@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import "./app.css"
 import axios from "axios"
+import {format} from "timeago.js"
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -13,7 +14,7 @@ function App() {
 useEffect(() => {
   const getPins = async () => {
     try {
-      const res = await axios.get("/pins");
+      const res = await axios.get("pins");
       setPins(res.data)
     } catch (err) {
       console.log(err);
@@ -22,14 +23,13 @@ useEffect(() => {
   getPins()
 }, [])
 
-
   return (
     <div className='App'>
       <Map
         initialViewState={{
-          latitude:-200,
-          longitude:-120,
-          zoom: 4
+          latitude:46,
+          longitude:17,
+          zoom: 3
         }}
         style={{
           width: "100vw", 
@@ -40,8 +40,7 @@ useEffect(() => {
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         >
       {pins.map(p => (
-        <>
-        
+ <>
         <Marker 
         longitude={p.long} 
         latitude={p.lat} 
@@ -77,13 +76,12 @@ useEffect(() => {
              </span>
 
              <span className='date'>
-                1 hour ago
+              {format(p.createdAt)}
              </span>
-
           </div>
       </Popup>
-          </>
-        ))}
+</>
+    ))} 
       
       </Map>
     
