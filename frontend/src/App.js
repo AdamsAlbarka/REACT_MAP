@@ -19,17 +19,17 @@ function App() {
   });
 
 
-  useEffect(() => {
-    const getPins = async () => {
-      try {
-        const allPins = await axios.get("/pins");
-        setPins(allPins.data); 
-      } catch (error) {
-        console.log(error.response.data);
-      }
-    };
-    getPins();
-  }, []);
+  // useEffect(() => {
+  //   const getPins = async () => {
+  //     try {
+  //       const allPins = await axios.get("/pins");
+  //       setPins(allPins.data); 
+  //     } catch (error) {
+  //       console.log(error.response.data);
+  //     }
+  //   };
+  //   getPins();
+  // }, []);
 
   return (
     <div style={{ height: "100vh", width: "100%" }}>
