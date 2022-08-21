@@ -45,11 +45,9 @@ function App() {
     >
       {pins.map((p) => (
         <>
-         <Marker 
-         longitude={p.long} 
-         latitude={p.lat}>
-              <Room style={{ fontSize: viewport.zoom * 7, color:"slateblue" }}/>
-        </Marker>
+      <Marker longitude={-100} latitude={40} anchor="bottom" >
+        {/* <img src="./pin.png" /> */}
+      </Marker>
           {p._id === currentPlaceId && (
             <Popup
               key={p._id}
