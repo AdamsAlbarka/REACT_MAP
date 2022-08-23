@@ -17,6 +17,9 @@
   .desc {
     font-size: 14px;
   }
+  .roomIcon{
+    cursor: pointer;
+  }
   
   .star {
     color: gold;
