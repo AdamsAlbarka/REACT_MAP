@@ -13,8 +13,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYWRsZXJzIiwiYSI6ImNsNzNvdGY4dDBndGM0MG53dzBlN
 
 function App() {
   const [pins, setPins] = useState([])
-  const [currentPlace, setCurrentPlace] = useState([])
+  const [currentPlace, setCurrentPlace] = useState(null)
   const currentUser = "Adlers"
+  const [newPlace, setNewPlace] = useState(null)
+  const [initialViewState, setInitialViewState] = useState({
+      latitude: 47,
+      longitude: 17,
+      zoom: 4,
+  })
 
 
   useEffect(() => {
@@ -29,19 +35,26 @@ function App() {
     getPins();
   }, []);
 
-  const handleMarkerClick = (id) => {
+  const handleMarkerClick = (id, lat, long) => {
     setCurrentPlace(id)
+    setInitialViewState({...initialViewState, longitude:long, latitude: lat})
+  }
+
+  const handleAddClick = (e) => {
+    const [lat, long] = e.lngLat;
+    setNewPlace({
+      lat: lat,
+      long: long
+    })
   }
 
   return (
     <div style={{ height: "100vh", width: "100%" }}>
     <Map
-     initialViewState={{
-      latitude: 47.040182,
-      longitude: 17.071727,
-      zoom: 4,
-    }}
-      mapStyle="mapbox://styles/mapbox/streets-v9"
+     {...initialViewState}
+     mapStyle="mapbox://styles/mapbox/streets-v9"
+     onDblClick={handleAddClick}
+     transitionDuration="200"
       // onViewportChange={(viewport) => setViewport(viewport)}
     >
 
@@ -53,9 +66,9 @@ function App() {
        anchor="bottom" >
        <RoomIcon className='roomIcon' 
                  style={{color:p.username === currentUser ? "tomato" : "slateblue"}} 
-                 onClick={() => handleMarkerClick(p._id)} /> 
+                 onClick={() => handleMarkerClick(p._id, p.lat, p.long)} /> 
        </Marker>
-       
+
         {p._id === currentPlace && (
        <Popup 
        longitude={p.long} 
@@ -84,6 +97,17 @@ function App() {
             )}
     </>
     ))}
+{ newPlace && (
+
+  <Popup 
+      longitude={newPlace.long} 
+      latitude={newPlace.lat}
+      anchor="left"
+      onClose={() => setCurrentPlace(null)}
+      >
+  Hello World    
+  </Popup>
+)}
       </Map>
 </div>
   );
