@@ -105,3 +105,7 @@
   .register{
     background-color: slateblue;
   }
+.leaflet-overlay-pane path,
+.leaflet-marker-icon {
+  cursor: pointer;
+}

@@ -35,38 +35,40 @@ function App() {
     getPins();
   }, []);
 
-  const handleMarkerClick = (id, lat, long) => {
+  const handleMarkerClick = (id) => {
     setCurrentPlace(id)
-    setInitialViewState({...initialViewState, longitude:long, latitude: lat})
-  }
+   }
 
   const handleAddClick = (e) => {
-    const [lat, long] = e.lngLat;
+    const [ long, lat ] = e.lngLat.toArray()
     setNewPlace({
-      lat: lat,
-      long: long
-    })
+      long, 
+      lat
+    }) 
+    // console.log(e)
   }
 
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
+    <div style={{ height: "100vh", width: "100vw" }}>
     <Map
      {...initialViewState}
-     mapStyle="mapbox://styles/mapbox/streets-v9"
+     mapStyle="mapbox://styles/mapbox/streets-v11"
      onDblClick={handleAddClick}
      transitionDuration="200"
-      // onViewportChange={(viewport) => setViewport(viewport)}
     >
 
       {pins.map(p => (
-        <>
-       <Marker longitude={p.long} latitude={p.lat} 
-       offsetLeft={-20}
-       offsetTop={-10}
-       anchor="bottom" >
+        <div key={p._id}>
+ 
+       <Marker 
+            longitude={p.long} 
+            latitude={p.lat} 
+            offsetLeft={-20}
+            offsetTop={-10}
+            anchor="bottom" >
        <RoomIcon className='roomIcon' 
                  style={{color:p.username === currentUser ? "tomato" : "slateblue"}} 
-                 onClick={() => handleMarkerClick(p._id, p.lat, p.long)} /> 
+                 onClick={() => handleMarkerClick(p._id)} /> 
        </Marker>
 
         {p._id === currentPlace && (
@@ -95,7 +97,7 @@ function App() {
           </div>
       </Popup> 
             )}
-    </>
+    </div>
     ))}
 { newPlace && (
 
