@@ -9,14 +9,18 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
 import * as timeago from 'timeago.js';
 import Register from './Components/Register/Register';
+import Login from './Components/Login/Login';
  
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWRsZXJzIiwiYSI6ImNsNzNvdGY4dDBndGM0MG53dzBlNnk4cDcifQ.vZ78yh-2-_kgd0vv6d5eXw';
 
 function App() {
+  const myStorage = window.localStorage
   const [pins, setPins] = useState([])
   const [title, setTitle] = useState(null)
   const [desc, setDesc] = useState(null)
   const [rating, setRating] = useState(0)
+  const [showRegister, setShowRegister] = useState(false)
+  const [showLogin, setShowLogin] = useState(false)
   const [currentPlace, setCurrentPlace] = useState(null)
   const [currentUser, setCurrentUser] = useState(null)
   const [newPlace, setNewPlace] = useState(null)
@@ -67,6 +71,11 @@ function App() {
       console.log(err)
     }
 
+  }
+
+  const handleLogout = () => {
+    myStorage.removeItem("user")
+    setCurrentUser(null)
   }
 
   return (
@@ -164,15 +173,17 @@ function App() {
   </Popup>
 )}
         {currentUser ? ( 
-        <button className='button logout'>Log Out</button>) : 
+        <button className='button logout' onClick={handleLogout}>Log Out</button>) : 
         (
           <div className='buttons'>
-          <button className='button login'>Log in</button>
-          <button className='button register'>Register</button>
+          <button className='button login' onClick={() => setShowLogin(true)}>Log in</button>
+          <button className='button register' onClick={() => setShowRegister(true)}>Register</button>
         </div>
         ) }
 
-        <Register />
+          {showRegister && ( <Register setShowRegister ={setShowRegister}/>)}
+          {showLogin && ( <Login setShowLogin={ setShowLogin } myStorage={myStorage} setCurrentUser={setCurrentUser} /> )}
+        
         
       </Map>
 
