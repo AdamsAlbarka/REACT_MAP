@@ -8,6 +8,7 @@ import axios from "axios"
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
 import * as timeago from 'timeago.js';
+import Register from './Components/Register/Register';
  
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWRsZXJzIiwiYSI6ImNsNzNvdGY4dDBndGM0MG53dzBlNnk4cDcifQ.vZ78yh-2-_kgd0vv6d5eXw';
 
@@ -170,6 +171,8 @@ function App() {
           <button className='button register'>Register</button>
         </div>
         ) }
+
+        <Register />
         
       </Map>
 
