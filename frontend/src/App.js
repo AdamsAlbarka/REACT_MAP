@@ -17,9 +17,9 @@ function App() {
   const [desc, setDesc] = useState(null)
   const [rating, setRating] = useState(0)
   const [currentPlace, setCurrentPlace] = useState(null)
-  const currentUser = "Adlers"
+  const [currentUser, setCurrentUser] = useState(null)
   const [newPlace, setNewPlace] = useState(null)
-  const [viewport, setViewport] = useState();
+  // const [viewport, setViewport] = useState();
 
   useEffect(() => {
     const getPins = async () => {
@@ -88,12 +88,12 @@ function App() {
        <Marker 
             longitude={p.long} 
             latitude={p.lat} 
-            offsetLeft={-viewport.zoom * 3.5}
-            offsetTop={-viewport.zoom * 7}
+            // offsetLeft={-viewport.zoom * 3.5}
+            // offsetTop={-viewport.zoom * 7}
             anchor="bottom" >
        <RoomIcon className='roomIcon' 
                  style={{
-                  fontSize: viewport.zoom * 7,
+                  fontSize:"3rem",
                   color:p.username === currentUser ? "tomato" : "slateblue"}} 
                  onClick={() => handleMarkerClick(p._id)} /> 
        </Marker>
@@ -162,6 +162,15 @@ function App() {
               </div>    
   </Popup>
 )}
+        {currentUser ? ( 
+        <button className='button logout'>Log Out</button>) : 
+        (
+          <div className='buttons'>
+          <button className='button login'>Log in</button>
+          <button className='button register'>Register</button>
+        </div>
+        ) }
+        
       </Map>
 
   );
