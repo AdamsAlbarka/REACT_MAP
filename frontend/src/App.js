@@ -24,7 +24,6 @@ function App() {
   const [currentPlace, setCurrentPlace] = useState(null)
   const [currentUser, setCurrentUser] = useState(null)
   const [newPlace, setNewPlace] = useState(null)
-  // const [viewport, setViewport] = useState();
 
   useEffect(() => {
     const getPins = async () => {
@@ -98,8 +97,6 @@ function App() {
        <Marker 
             longitude={p.long} 
             latitude={p.lat} 
-            // offsetLeft={-viewport.zoom * 3.5}
-            // offsetTop={-viewport.zoom * 7}
             anchor="bottom" >
        <RoomIcon className='roomIcon' 
                  style={{
