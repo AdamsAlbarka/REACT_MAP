@@ -10,8 +10,8 @@ import { Cancel } from "@mui/icons-material"
 export default function Login({setShowLogin, myStorage, setCurrentUser}) {
     const [error, setError] = useState(false)
 
-    const nameRef = useRef()
-    const passwordRef = useRef()
+    const nameRef = useRef();
+    const passwordRef = useRef();
 
     const handleSubmit = async (e) =>{ 
         e.preventDefault()
